@@ -1,0 +1,19 @@
+{
+  "name": "module-4-phase-1",
+  "version": "1.0.0",
+  "description": "bootstrap, templates",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "bootstrap",
+    "templates"
+  ],
+  "author": "Parthiban R",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.1"
+  }
+}

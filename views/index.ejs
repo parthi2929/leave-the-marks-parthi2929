@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%=title%></title>
+        <% include partials/head.ejs %>
+    </head>
+    <body>
+
+        <!-- #wrapper ENSURE ALL CONTENT INSIDE THIS-->
+        <div id="wrapper">                
+            
+                
+            <% include partials/sidebar.ejs %>    
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="kaushanHead" align="center"><%=headline%></p>
+                            <blockquote class="mainLines">
+                                <p>My story is I am newbie to web dev, so for this exercise of module 4, building all from scratch</p>
+                                <p>yes, you read it right.</p>
+                                <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
+                            </blockquote>
+                            <blockquote class="mainLines">
+                                    <p>Focus is on functionality, so not much time and learning given on front end</p>
+                                    <p>Just making it decent enough for now and simple for code readability</p>
+                                    <!-- <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a> -->
+                                </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+        <!-- /#wrapper -->
+        
+        <% include partials/jsincludes.ejs %>          
+    </body>
+</html>
