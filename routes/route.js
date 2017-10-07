@@ -9,3 +9,47 @@ exports.index = function(request, response)
         }
     );
 }
+
+exports.login = function(request, response)
+{
+    //render
+    response.render(
+        "login",
+        {
+
+        }
+    );
+}
+
+exports.register = function(request, response)
+{
+    //render
+    response.render(
+        "register",
+        {
+
+        }
+    );
+}
+
+exports.newUser = function(request, response)
+{
+    //render
+    response.render(
+        "newUser",
+        {
+
+        }
+    );
+}
+
+exports.logout = function(request, response)
+{
+    //render
+    response.render(
+        "logout",
+        {
+
+        }
+    );
+}

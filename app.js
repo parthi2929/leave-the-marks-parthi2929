@@ -9,6 +9,11 @@ app.use(express.static(__dirname + "/public"));
 
 //3. Routing
 app.get("/", routes.index);
+app.get("/login", routes.login);
+app.get("/register", routes.register);
+app.get("/logout",routes.logout);
+
+app.post("/newUser",routes.newUser);    //This is a POST caz sensitive info coming in bro!
 
 //4. Start listening to a port
 var port = process.env.PORT || 8080;
