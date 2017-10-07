@@ -16,6 +16,6 @@ var server = app.listen(
     port,
     function(request, response)
     {
-        console.log("catch the action at http://localhost:" + port);
+        console.log("Catch the action at http://localhost:" + port);
     }
 );
