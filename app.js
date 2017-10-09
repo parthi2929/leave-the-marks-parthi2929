@@ -7,13 +7,21 @@ var app = express();
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
-//3. Routing
+//3. Routing - Paged => Direct to html (note they are also GET)
 app.get("/", routes.index);
 app.get("/login", routes.login);
 app.get("/register", routes.register);
 app.get("/logout",routes.logout);
+app.get("/allStories",routes.allStories);
+app.get("/allStories/slugStory", routes.slugStory);
+app.get("/newStory",routes.newStory);
 
-app.post("/newUser",routes.newUser);    //This is a POST caz sensitive info coming in bro!
+
+//4. Routing - Pageless => Operations (note, they are also POST)
+app.post("/newUser",routes.newUser);    //We will evaluate and register newUser
+app.post("/authenticate", routes.authenticate); //We will authenticate if log credentials ok
+app.post("/addStoryToDB",routes.addStoryToDB);  //We will store submitted story in DB
+
 
 //4. Start listening to a port
 var port = process.env.PORT || 8080;

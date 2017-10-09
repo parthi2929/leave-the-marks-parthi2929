@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!--References:
+    https://summernote.org/getting-started/
+    http://getbootstrap.com/docs/4.0/components/forms/
+    https://www.w3schools.com/bootstrap/bootstrap_forms_inputs.asp   
+    https://v4-alpha.getbootstrap.com/layout/grid/     
+-->
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>New Story</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script>
+    </head>
+    <body>
+        <br/><br/><br/>
+        <div class="container">
+            <form action="/addStoryToDB" method="post">
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-2 col-form-label">Title</label>
+                    <div class="col-sm-10">
+                    <input type="text" class="form-control" required name="Title">
+                    </div>
+                </div>
+                <div class="form-group row justify-content-center">
+                    <label class="col-sm-2 col-form-label">Content</label>
+                    <div class="col-sm-10">
+                    <textarea class="form-control" rows="8" name="storyContent" id="storyContentID"></textarea>
+                    </div>
+                </div>
+                <br/><br/>
+                <div class="form-group row justify-content-center">
+                    <div class="offset-sm-4 col-sm-4">
+                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+        <script>
+          $('#storyContentID').summernote({
+            placeholder: 'Submit your story',
+            tabsize: 2,
+            height: 100
+          });
+        </script>   
+    </body>
+</html>
+
