@@ -74,10 +74,30 @@ exports.newUser = function(request, response)
 
 exports.authenticate = function(request, response)
 {
-    //authenticate if user credentials match in DB.If not go back. If matches, go to new Story 
-    response.redirect(
-        "/newStory"
-    );
+    //check if user credentials match in current session.
+    var userMatch = ((request.session.userName == request.body.userName) ? true : false);
+    var passwordMatch = ((request.session.password == request.body.password) ? true : false);
+
+    //If matches, go to new Story
+    if (userMatch && passwordMatch)
+    {
+        response.render(
+          "newStory"  ,
+          {
+              sessionObjectForEJS: request.session  //passing session so newStory could use it to personalize..
+          }
+        );
+    }
+    else  //go back to login throwing error
+    {
+        var message = "Login Credentials do not match. Please try again";
+        response.render(
+            "login",
+            {
+                errorMessage: message
+            }
+        );
+    }
 }
 
 exports.allStories = function(request, response)
@@ -105,7 +125,7 @@ exports.slugStory = function(request, response)
     response.render(
         "slugStory",
         {
-            
+
         }
     );
 }

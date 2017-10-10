@@ -19,6 +19,10 @@
     <body>
         <br/><br/><br/>
         <div class="container">
+            <blockquote>
+                    <h3>Hey <code><%=sessionObjectForEJS.userName%></code>, Congrats. You have successfully logged in</h3>
+                    <h3>Please enter your story below</h3>
+            </blockquote>
             <form action="/addStoryToDB" method="post">
                 <div class="form-group row justify-content-center">
                     <label class="col-sm-2 col-form-label">Title</label>

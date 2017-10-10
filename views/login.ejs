@@ -15,6 +15,11 @@
                             <strong> Sign in to continue</strong>
                         </div>
                         <div class="panel-body">
+
+                                <% if( typeof(errorMessage) !== 'undefined' ) {%>
+                                    <h5 align="center" class="margin-base-vertical"><code><%=errorMessage%></code></h5>
+                               <%}%>
+
                             <form role="form" action="/authenticate" method="POST">
                                 <fieldset>
                                     <div class="row">
@@ -50,7 +55,7 @@
                             </form>
                         </div>
                         <div class="panel-footer ">
-                            Don't have an account! <a href="#" onClick=""> Sign Up Here </a>
+                            Don't have an account! <a href="/register" onClick=""> Sign Up Here </a>
                         </div>
                     </div>
                 </div>
