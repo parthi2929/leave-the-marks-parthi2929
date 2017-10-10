@@ -17,9 +17,13 @@
                 <li>
                 <a class="menus" align="center" href="/newStory">Share your own story</a>
                 </li>
-                <br/><br/>                               
-                <a type="button" href="/login" class="btn btn-primary">Login</a>
-                <a type="button" href="/register" class="btn btn-danger">Sign-up</a>
+                <br/><br/>
+                <% if( typeof(sessionForEJS.loggedIn) == 'undefined' ) {%>                               
+                    <a type="button" href="/login" class="btn btn-primary">Login</a>
+                    <a type="button" href="/register" class="btn btn-danger">Sign-up</a>
+                <%} else{%>
+                    <a type="button" href="/logout" class="btn btn-danger">Logout</a>
+                <%}%>
             </div>
         </ul>
     </div>

@@ -5,7 +5,8 @@ exports.index = function(request, response)
         "index",
         {
             title: "Leave the Mark",
-            headline: "We believe everyone has a story to tell"
+            headline: "We believe everyone has a story to tell",
+            sessionForEJS: request.session  //for sidebar update
         }
     );
 }
@@ -34,11 +35,14 @@ exports.register = function(request, response)
 
 exports.logout = function(request, response)
 {
-    //render
+    //Destroy current session 
+    var loggedOutUser = request.session.userName;
+    request.session.destroy();
+    //Show log out page, saying bye to user
     response.render(
         "logout",
         {
-
+            loggedOutUserForEJS: loggedOutUser
         }
     );
 }
@@ -66,7 +70,7 @@ exports.newUser = function(request, response)
         response.render(
             "newSavedUser",
             {
-                sessionObjectForEJS : request.session             //just to differentiate 
+                sessionForEJS : request.session             //for sidebar update
             }
         );
     }
@@ -81,10 +85,11 @@ exports.authenticate = function(request, response)
     //If matches, go to new Story
     if (userMatch && passwordMatch)
     {
+        request.session.loggedIn = true;
         response.render(
           "newStory"  ,
           {
-              sessionObjectForEJS: request.session  //passing session so newStory could use it to personalize..
+            sessionForEJS: request.session  //for sidebar button update and newStory could use it to personalize..
           }
         );
     }
@@ -106,7 +111,7 @@ exports.allStories = function(request, response)
     response.render(
         "allStories",
         {
-
+            sessionForEJS: request.session  //for sidebar update
         }
     );
 }
@@ -125,7 +130,7 @@ exports.slugStory = function(request, response)
     response.render(
         "slugStory",
         {
-
+            sessionForEJS: request.session //for sidebar update
         }
     );
 }

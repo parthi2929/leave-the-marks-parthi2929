@@ -2,7 +2,10 @@
 Step by step development of leave the marks app of Module 4 and 5 in Edureka Nodejs training program
 
 Update: 10th Oct 2017
-Phase 2 Step 2 
-Login also using temporary session created during signup. 
+Phase 2 Step 3 
+Logout and Sidebar buttons also updated depending on current session (loggedin or not) at any time.
 
-![demo](demo/Phase_2_Step_2_Login_Demo.gif)
+Note in demo below, after logging out, the user in current session is destroyed, so gives error
+when he tries to login again.
+
+![demo](demo/Phase_2_Step_3_Logout_SidebarUpdate_Demo.gif)
