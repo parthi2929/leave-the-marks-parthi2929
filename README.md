@@ -2,10 +2,11 @@
 Step by step development of leave the marks app of Module 4 and 5 in Edureka Nodejs training program
 
 Update: 10th Oct 2017
-Phase 2 Step 3 
-Logout and Sidebar buttons also updated depending on current session (loggedin or not) at any time.
+Phase 2 Step 4 
 
-Note in demo below, after logging out, the user in current session is destroyed, so gives error
-when he tries to login again.
+Newstory page has direct link in home page. So it is possible, user may click that without logging in.
 
-![demo](demo/Phase_2_Step_3_Logout_SidebarUpdate_Demo.gif)
+So we have to validate if he already logged in and allow. If not, direct him to login page.
+
+
+![demo](demo/Phase_2_Step_4_OtherPages_Demo.gif)

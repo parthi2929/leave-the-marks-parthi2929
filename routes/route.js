@@ -137,11 +137,22 @@ exports.slugStory = function(request, response)
 
 exports.newStory = function(request, response)
 {
-    //authenticate if user credentials match in DB.If not go back. If matches, go to new Story 
-    response.render(
-        "newStory",
-        {
+    //This might be reachable directly without logging in but should not be allowed.
+    //Check if already logged in. If so, proceed. 
+    if(request.session.loggedIn)
+    {
+        response.render(
+            "newStory",
+            {
+                sessionForEJS: request.session
+            }
+        );
+    }
+    else //If not, go to login
+    {
+        response.redirect(
+            "/login"
+        );
+    }
 
-        }
-    );
 }
