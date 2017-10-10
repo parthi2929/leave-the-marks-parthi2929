@@ -15,6 +15,11 @@
                             <strong> Sign up</strong>
                         </div>
                         <div class="panel-body">
+
+                                <% if( typeof(errorMessage) !== 'undefined' ) {%>
+                                    <h5 align="center" class="margin-base-vertical"><code><%=errorMessage%></code></h5>
+                               <%}%>
+                               
                             <form role="form" action="/newUser" method="POST"> <!--//This is a POST caz sensitive info coming in bro!-->
                                 <fieldset>
                                     <div class="row">
@@ -30,15 +35,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-user"></i>
                                                     </span> 
-                                                    <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="glyphicon glyphicon-envelope"></i>
-                                                    </span> 
-                                                    <input class="form-control" placeholder="Email ID" name="emailID" type="text" autofocus>
+                                                    <input class="form-control" name="userName" type="text" autofocus placeholder="User Name">
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -46,7 +43,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-lock"></i>
                                                     </span>
-                                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                                    <input class="form-control" name="password" type="password" value="" placeholder="Password">
                                                 </div>
                                             </div>
                                             <div class="form-group">

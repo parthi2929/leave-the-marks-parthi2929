@@ -46,13 +46,30 @@ exports.logout = function(request, response)
 
 exports.newUser = function(request, response)
 {
-    //check if user already exists. If so, go back. If not go to newSavedUser
-    response.render(
-        "newSavedUser",
-        {
-
-        }
-    );
+    //check if user already exists in current session. 
+    //If so, go back asking them to re enter.
+    var errorMessage = "";
+    if (request.session.userName == request.body.userName)
+    {
+        var message="A user already exists with that username or email";
+        response.render(
+            "register",
+            {
+                errorMessage:message
+            }
+        );
+    }
+    else // If not save it as sessions' and then go to newSavedUser to welcome him
+    {
+        request.session.userName = request.body.userName;   //remember, newUser came as POST so we use bodyparser to get this data
+        request.session.password = request.body.password;   //since temporary session, lets not encrypt yet
+        response.render(
+            "newSavedUser",
+            {
+                sessionObjectForEJS : request.session             //just to differentiate 
+            }
+        );
+    }
 }
 
 exports.authenticate = function(request, response)
@@ -88,7 +105,7 @@ exports.slugStory = function(request, response)
     response.render(
         "slugStory",
         {
-
+            
         }
     );
 }

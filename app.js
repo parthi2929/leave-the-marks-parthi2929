@@ -1,13 +1,18 @@
 //1. Import 
 var express = require("express");
 var routes = require("./routes/route.js");
+var session = require("express-session");
+var bodyparser = require("body-parser");
 
 //2. Initialize
 var app = express();
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({     extended: false     }));
+app.use(session({   secret:"secret",     resave:"true" ,    saveUninitialized:true      }));
 
-//3. Routing - Paged => Direct to html (note they are also GET)
+//3. Routing - Paged => Direct to html validating insensitive data (note they are also GET)
 app.get("/", routes.index);
 app.get("/login", routes.login);
 app.get("/register", routes.register);
@@ -17,7 +22,7 @@ app.get("/allStories/slugStory", routes.slugStory);
 app.get("/newStory",routes.newStory);
 
 
-//4. Routing - Pageless => Operations (note, they are also POST)
+//4. Routing - Pageless => Operations involving sensitive data (note, they are also POST)
 app.post("/newUser",routes.newUser);    //We will evaluate and register newUser
 app.post("/authenticate", routes.authenticate); //We will authenticate if log credentials ok
 app.post("/addStoryToDB",routes.addStoryToDB);  //We will store submitted story in DB
