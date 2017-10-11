@@ -1,7 +1,14 @@
 # leave-the-marks-parthi2929
 Step by step development of leave the marks app of Module 4 and 5 in Edureka Nodejs training program
 
-Update: 11th Oct 2017
+Update: 11th Oct 2017 9:00 PM
+Phase 3 Step 2
+Password Hashed
+
+The hashing and comparision (if success) are logged, which you could see in console.
+To focus on functionality and better readability of code, too much logging is avoided for now.
+
+Update: 11th Oct 2017 8:00 PM
 Phase 3 Step 1 
 Signup and Login now updated in DB
 
