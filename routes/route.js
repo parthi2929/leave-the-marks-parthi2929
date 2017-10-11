@@ -1,3 +1,6 @@
+var userModel = require("../models/db.js");
+
+
 exports.index = function(request, response)
 {
     //render
@@ -49,61 +52,108 @@ exports.logout = function(request, response)
 
 
 exports.newUser = function(request, response)
-{
-    //check if user already exists in current session. 
-    //If so, go back asking them to re enter.
-    var errorMessage = "";
-    if (request.session.userName == request.body.userName)
-    {
-        var message="A user already exists with that username or email";
-        response.render(
-            "register",
+{    
+    //1. Get signup credentials from body  (its a POST so thank body-parser)
+    var enteredUserName = request.body.userName;
+    var enteredPassword = request.body.password;
+
+    //2. Create a model instance
+    var newUserModel = new userModel();
+    newUserModel.userName = enteredUserName;
+    newUserModel.password = enteredPassword;
+
+    //3. Save the model. 
+    newUserModel.save(
+        function(saveError, savedUser)
+        {
+            if (saveError)  //if error saving
             {
-                errorMessage:message
+                var message = "User already exists. Please try again";
+                response.render(
+                    "register",
+                    {
+                        errorMessage: message
+                    }
+                );
             }
-        );
-    }
-    else // If not save it as sessions' and then go to newSavedUser to welcome him
-    {
-        request.session.userName = request.body.userName;   //remember, newUser came as POST so we use bodyparser to get this data
-        request.session.password = request.body.password;   //since temporary session, lets not encrypt yet
-        response.render(
-            "newSavedUser",
-            {
-                sessionForEJS : request.session             //for sidebar update
+            else    //if success
+            {                   
+                console.log(savedUser.userName + " was successfully saved");
+                request.session.userName = savedUser.userName;  //storing saved userName for next purpose
+                response.render(
+                    "newSavedUser",
+                    {
+                        sessionForEJS : request.session 
+                    }
+                );
             }
-        );
-    }
+        }
+    );
+    
 }
 
 exports.authenticate = function(request, response)
 {
-    //check if user credentials match in current session.
-    var userMatch = ((request.session.userName == request.body.userName) ? true : false);
-    var passwordMatch = ((request.session.password == request.body.password) ? true : false);
+    //1. Get signup credentials from body  (its a POST so thank body-parser)
+    var enteredUserName = request.body.userName;
+    var enteredPassword = request.body.password;
 
-    //If matches, go to new Story
-    if (userMatch && passwordMatch)
-    {
-        request.session.loggedIn = true;
-        response.render(
-          "newStory"  ,
-          {
-            sessionForEJS: request.session  //for sidebar button update and newStory could use it to personalize..
-          }
-        );
-    }
-    else  //go back to login throwing error
-    {
-        var message = "Login Credentials do not match. Please try again";
-        response.render(
-            "login",
+    //2. Find matching userName in DB using model
+    userModel.findOne(
+        {
+            userName: enteredUserName
+        },
+        function(error, foundUser)
+        {
+            if (error)
             {
-                errorMessage: message
+                var message = "Login Credentials do not match. Please try again";
+                response.render(
+                    "login",
+                    {
+                        errorMessage: message
+                    }
+                );
+                return; //nothing more to do
             }
-        );
-    }
+            else    //if userName matches, lets compare password next..
+            {
+                foundUser.comparePassword(
+                    enteredPassword, 
+                    function(isMatch)
+                    {
+                        if (isMatch)
+                        {
+                            request.session.userName = foundUser.userName;
+                            request.session.loggedIn = true;
+                            response.render(
+                              "newStory"  ,
+                              {
+                                sessionForEJS: request.session  //for sidebar button update and newStory could use it to personalize..
+                              }
+                            );
+                        }
+                        else
+                        {
+                            var message = "Login Credentials do not match. Please try again";
+                            response.render(
+                                "login",
+                                {
+                                    errorMessage: message
+                                }
+                            );
+                            return; //nothing more to do
+                        }
+                    }
+                );
+            }
+        }
+    );
 }
+
+
+
+
 
 exports.allStories = function(request, response)
 {

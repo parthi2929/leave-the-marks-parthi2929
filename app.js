@@ -3,6 +3,8 @@ var express = require("express");
 var routes = require("./routes/route.js");
 var session = require("express-session");
 var bodyparser = require("body-parser");
+var db = require("./models/db.js");
+
 
 //2. Initialize
 var app = express();
