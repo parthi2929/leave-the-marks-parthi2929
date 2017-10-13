@@ -1,4 +1,6 @@
-var userModel = require("../models/db.js");
+var mongoose = require("mongoose");
+var userModel = mongoose.model("userModel");
+var storyModel = mongoose.model("storyModel");
 
 
 exports.index = function(request, response)
@@ -151,36 +153,91 @@ exports.authenticate = function(request, response)
     );
 }
 
-
-
-
-
 exports.allStories = function(request, response)
 {
-    
-    response.render(
-        "allStories",
+    //1. Retrieve Stories
+    storyModel.find(
         {
-            sessionForEJS: request.session  //for sidebar update
+            //no condition as we are extracting all stories in DB
+        },
+        function(errorFind, savedStories)
+        {
+            //After all, if no stories, we simply display none
+            response.render(
+                "allStories",
+                {
+                    sessionForEJS: request.session,  //for sidebar update
+                    storiesForEJS: savedStories      //for stories update
+                }
+            );           
         }
     );
 }
 
+
 exports.addStoryToDB = function(request, response)
 {
-    //save the story in DB. If successfull, redirect to all stories page
-    response.redirect(
-        "/allStories"
+    //1. Get the story data: title, author, content, and create slug
+    var title = request.body.title;
+    var author = request.session.userName; //yeah, can get from session..
+    var content = request.body.storyContent;
+
+
+    var newStory = new storyModel();
+    newStory.title = title;
+    newStory.author = author;
+    newStory.content = content;
+    newStory.slug =  newStory.title
+        .toString()
+        .trim()
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-]+/g, "")
+        .replace(/\-\-+/g, "-")
+        .replace(/^-+/, "")
+        .replace(/-+$/, "");    //Thanks to: https://andrew.stwrt.ca/posts/js-slugify/
+
+    //2. Save using Model. If success, redirect to allStories page.
+    newStory.save(
+        function(errorSaving, savedStory)
+        {
+            if (errorSaving)
+            {
+                var message = "Error Saving DB";
+                console.log(message);
+                //later throw 500
+            }
+            else //if successfully stored, show all stories page
+            {
+                response.redirect(
+                    "/allStories"
+                );
+            }
+        }
     );
 }
 
+
+
 exports.slugStory = function(request, response)
 {
-    //find the story int he DB and route there..
-    response.render(
-        "slugStory",
+    //1. Search in DB with given slug
+    var slugToSearch = request.params.slug;
+
+    //2. Pass on that story to EJS
+    storyModel.findOne(
         {
-            sessionForEJS: request.session //for sidebar update
+            slug: slugToSearch  //field: value to be matched
+        },
+        function(errorFinding, savedStory)
+        {
+            response.render(
+                "slugStory",
+                {
+                    sessionForEJS: request.session, //for sidebar update
+                    storyForEJS: savedStory
+                }
+            );
         }
     );
 }

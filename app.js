@@ -1,9 +1,12 @@
 //1. Import 
 var express = require("express");
+var db = require("./models/db.js");
+var userModel = require("./models/userModel.js"); //to register schema
+var storyModel = require("./models/storyModel.js"); //to register schema
 var routes = require("./routes/route.js");
 var session = require("express-session");
 var bodyparser = require("body-parser");
-var db = require("./models/db.js");
+
 
 
 //2. Initialize
@@ -22,6 +25,7 @@ app.get("/logout",routes.logout);
 app.get("/allStories",routes.allStories);
 app.get("/allStories/slugStory", routes.slugStory);
 app.get("/newStory",routes.newStory);
+app.get("/allStories/:slug",routes.slugStory);
 
 
 //4. Routing - Pageless => Operations involving sensitive data (note, they are also POST)

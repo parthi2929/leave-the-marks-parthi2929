@@ -19,16 +19,13 @@
                         <div class="col-lg-12">
                             <p class="kaushanHead" align="center">All Stories</p>
 
-                            <!-- Dummy Stories for now -->
-                            <h1>Dummy Story Title 1</h1>
-                            <h4>Created by <code> Dummy User 1 </code></h4><br/><br/>
-                            <p><b>- Read the full story <a href="/allStories/slugStory">here</a> </b></p>
-
-                            <br/><br/>
-
-                            <h1>Dummy Story Title 2</h1>
-                            <h4>Created by <code> Dummy User 2</code></h4><br/><br/>
-                            <p><b>- Read the full story <a href="/allStories/slugStory">here</a> </b></p>
+                            <% if( typeof(storiesForEJS) !== 'undefined' ) {%> <!--Make sure first there are stories-->
+                                <% for(var i = 0; i < storiesForEJS.length; i++) { %> <!--then iterate through them-->
+                                    <h1><%- storiesForEJS[i].title %></h1>
+                                    <h4>Created by <code> <%- storiesForEJS[i].author %></code></h4><br/><br/>
+                                    <p><b>- Read the full story <a href="/allStories/<%- storiesForEJS[i].slug %>">here</a> </b></p>    
+                                <% }%>
+                            <% }%>
 
                             <br/><br/>
                         </div>
