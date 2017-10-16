@@ -34,6 +34,24 @@ app.post("/authenticate", routes.authenticate); //We will authenticate if log cr
 app.post("/addStoryToDB",routes.addStoryToDB);  //We will store submitted story in DB
 
 
+//4.1 Error handling
+app.use(
+    function(request, response)
+    {
+        console.log("Error 404");
+        response.status(404);
+        response.render("404");
+    }
+);
+app.use(
+    function(error, request, response, next)
+    {
+        console.log("Error 500: " + error);
+        response.status(500);
+        response.render("500");
+    }
+);
+
 //4. Start listening to a port
 var port = process.env.PORT || 8080;
 var server = app.listen(

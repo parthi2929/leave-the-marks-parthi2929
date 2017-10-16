@@ -205,7 +205,8 @@ exports.addStoryToDB = function(request, response)
             {
                 var message = "Error Saving DB";
                 console.log(message);
-                //later throw 500
+                response.status(500);
+                response.render("500"); // we could have passed on error to show to user, but not good practise
             }
             else //if successfully stored, show all stories page
             {

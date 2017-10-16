@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var chalk = require("chalk");
 
 //1. Connect to DB
 var dbURI = "mongodb://localhost:27017/test";
@@ -13,21 +14,21 @@ mongoose.connection.on(
     "connected",
     function()
     {
-        console.log("Mongoose connected to DB successfully");
+        console.log(chalk.yellow("Mongoose connected to DB successfully"));
     }
 );
 mongoose.connection.on(
     "error",
     function()
     {
-        console.log("DB error");
+        console.log(chalk.red("DB error"));
     }
 );
 mongoose.connection.on(
     "disconnected",
     function()
     {
-        console.log("Mongoose disconnected from DB");
+        console.log(chalk.red("Mongoose disconnected from DB"));
     }
 );
 

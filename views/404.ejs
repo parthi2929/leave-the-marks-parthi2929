@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>logout</title>
+        <% include partials/head.ejs %>
+    </head>
+    <body>
+
+        <!-- #wrapper ENSURE ALL CONTENT INSIDE THIS-->
+        <div id="wrapper">                
+            
+        <!--side bar is reconstructed here, because this page is already caz of error -->
+        <div id="sidebar-wrapper">
+                <ul class="sidebar-nav">
+                    <div align="center">
+                        <br/>
+                        <li class="sidebar-brand">
+                                <a align="center" href="/">
+                                    <p class="kaushanSide">Leave the marks</p>
+                                </a>
+                        </li>     
+                        <br/><br/>             
+                        <img src="/images/logo.png" class="img-rounded img-responsive"> 
+                        <br/><br/><br/>
+                        <li>
+                        <a class="menus" align="center" href="/allStories">All Stories</a>
+                        </li>
+                        <li>
+                        <a class="menus" align="center" href="/newStory">Share your own story</a>
+                        </li>
+                        <br/><br/>                                               
+                        <a type="button" href="/login" class="btn btn-primary">Login</a>
+                        <a type="button" href="/register" class="btn btn-danger">Sign-up</a>
+                    </div>
+                </ul>
+            </div>  
+
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p class="kaushanHead" align="center">Welcome</p>
+                            <blockquote class="mainLines">
+                                <p>Yikes. 404 Error. Yeah, thats it. No, not apologizing. It happens!</p>
+                                <p>Ok, the problem is URL you tried was invalid</p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+        </div>
+        <!-- /#wrapper -->
+        
+        <% include partials/jsincludes.ejs %>          
+    </body>
+</html>
